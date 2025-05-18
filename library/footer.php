@@ -1,6 +1,6 @@
 <style>
   .text-right img {
-    height: 35px;
+    height: 30px;
   }
 </style>
 

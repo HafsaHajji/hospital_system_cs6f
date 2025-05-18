@@ -27,16 +27,33 @@ include "library/conn.php"
       <div class="col-2"></div>
       <div class="col-md-8">
           <div class="tile">
-            <h3 class="tile-title">Payment Registration Form</h3>
+            <h3 class="tile-title">Patient Registration Form</h3>
             <div class="tile-body">
               <form action="" method="POST">
-        
                 <div class="mb-3">
                   <label class="form-label">Patient Name</label>
-                  <select class="form-control" name="ddlpatientname">
-                    <option value="">Select Patient Name</option>
+                  <input class="form-control" type="text" name="patientname" placeholder="Patient Name" required>
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">Tell</label>
+                  <input class="form-control" type="number" name="tell" placeholder="Tell" required>
+                </div>
+                 <div class="mb-3">
+                  <label class="form-label">Address</label>
+                  <input class="form-control" type="text" name="address" placeholder="Address" required>
+                </div>
+                 <div class="mb-3">
+                  <label class="form-label">Age</label>
+                  <input class="form-control" type="number" name="age" placeholder="Age" required>
+                </div>
+                 <div class="mb-3">
+                  <label class="form-label">Doctor Name</label>
+                  <select class="form-control" name="ddldoctorname">
+                    <option value="">Select Doctor Name</option>
+                  <!-- JOIN side LO sameyo -->
                     <?php
-                    $sql = mysqli_query($conn,"SELECT patient_id, patient_name FROM patients");
+                    $sql = mysqli_query($conn,"SELECT d.doctor_id, s.staff_name FROM doctors d
+                     JOIN staff s ON s.staff_id = d.staff_id");
                     while($row = mysqli_fetch_array($sql)){
                       echo "<option value='$row[0]'>$row[1]</option>";
                     }
@@ -44,45 +61,26 @@ include "library/conn.php"
                   </select>
 
                 </div>
-                <div class="mb-3">
-                  <label class="form-label">Current Blance</label>
-                  <input class="form-control" type="number" name="currentbalance" placeholder="Current Blance" required>
-                </div>
                  <div class="mb-3">
-                  <label class="form-label">Paid</label>
-                  <input class="form-control" type="number" name="paid" placeholder="Paid" required>
+                  <label class="form-label">Amount</label>
+                  <input class="form-control" type="number" name="amount" placeholder="Amount" required >
                 </div>
-                 <div class="mb-3">
-                  <label class="form-label">Remained</label>
-                  <input class="form-control" type="number" name="remained" placeholder="Remained" required>
-                </div>
-                      
+
+        
                 </div>
                 <div class="mb-3">
                   <label class="form-label">Date</label>
                   <input class="form-control" type="date" name="date" value="<?php echo Date("Y-m-d")?>">
                 </div>
             
-             
+            
             <div class="tile-footer">
               <button class="btn btn-primary" type="submit" name="btnregister"><i class="bi
                bi-check-circle-fill me-2"></i>Register</button>
             </div>
             </form>
 
-            <!-- save code -->
-            <?php
-            if(isset($_POST['btnregister'])){
-              $pn = mysqli_real_escape_string($conn, $_POST['ddlpatientname']);
-              $cb = mysqli_real_escape_string($conn, $_POST['currentbalance']);
-              $pa = mysqli_real_escape_string($conn, $_POST['paid']);
-              $re = mysqli_real_escape_string($conn, $_POST['remained']);
-              $da = mysqli_real_escape_string($conn, $_POST['date']);
-
-              $insert = mysqli_query($conn,"INSERT INTO payment VALUES(null, '$pn', '$cb', '$pa', '$re', '$da')");
-              echo "<h1 class='btn btn-success'>Insert Success</h1>";
-            }
-            ?>
+        
           </div>
         </div>
 </div>

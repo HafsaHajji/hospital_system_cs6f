@@ -73,7 +73,7 @@ include "library/conn.php"
                   <input class="form-control" type="date" name="date" value="<?php echo Date("Y-m-d")?>">
                 </div>
             
-             </div>
+            
             <div class="tile-footer">
               <button class="btn btn-primary" type="submit" name="btnregister"><i class="bi
                bi-check-circle-fill me-2"></i>Register</button>
