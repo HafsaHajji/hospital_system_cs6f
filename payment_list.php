@@ -1,5 +1,5 @@
 <?php 
-include "library/conn.php";
+include "library/conn.php"
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -33,11 +33,9 @@ include "library/conn.php";
                     <tr>
                         <th>Serial</th>
                       <th>Patient_name</th>
-                      <th>Tell</th>
-                      <th>Address</th>
-                      <th>Age</th>
-                      <th>Doctor_id</th>
-                      <th>Feeamount</th>
+                      <th>Amount</th>
+                      <th>Paid</th>
+                      <th>Remained</th>
                       <th>date</th>
                      <th>Action</th>
 
@@ -47,33 +45,33 @@ include "library/conn.php";
 
                 <!-- Update code -->
                 <?php
-            if(isset($_POST['btnupdate'])){
-              $id = mysqli_real_escape_string($conn, $_POST['id']);
-              $pn = mysqli_real_escape_string($conn, $_POST['patientname']);
-              $te = mysqli_real_escape_string($conn, $_POST['tell']);
-              $ad = mysqli_real_escape_string($conn, $_POST['addres']);
-              $ag = mysqli_real_escape_string($conn, $_POST['age']);
-              $dn = mysqli_real_escape_string($conn, $_POST['ddldoctorname']);
-              $am = mysqli_real_escape_string($conn, $_POST['amount']);
-              $da = mysqli_real_escape_string($conn, $_POST['date']);
+                    if(isset($_POST['btnupdate'])){
+                    $id = mysqli_real_escape_string($conn, $_POST['id']);
+                    $pn = mysqli_real_escape_string($conn, $_POST['patient_name']);
+                    $te = mysqli_real_escape_string($conn, $_POST['tell']);
+                    $add = mysqli_real_escape_string($conn, $_POST['address']);
+                    $ag = mysqli_real_escape_string($conn, $_POST['age']);
+                    $do = mysqli_real_escape_string($conn, $_POST['doctor_id']);
+                    $fa = mysqli_real_escape_string($conn, $_POST['feeamount']);
+                    $da = mysqli_real_escape_string($conn, $_POST['regdate']);
 
-              $insert = mysqli_query($conn,"SELECT patients SET patient_name='$pn', tell='$te', address='$ad', age='$ag', feeamount='$am', regdate='$da' where patient_id='$id'");
-             
-              echo "<h1 class='btn btn-success'>Updated Success</h1>";
-            }
+                     $edit = mysqli_query($conn,"UPDATE patients SET patient_name='$pn', tell='$te', address='$add', age='$ag', doctor_id='$do', feeamount='$fa', regdate='$da' WHERE patient_id='$id'");
+
+                echo "<h1 class='btn btn-success'>updated Success</h1>";
+                }
             ?>
 
                 <!-- Delete code -->
                     <?php
                     if(isset($_GET['idd'])){
                         $id = $_GET['idd'];
-                        $del = mysqli_query($conn, "DELETE FROM patients WHERE patient_id='$id'");
+                        $del = mysqli_query($conn, "DELETE FROM payment WHERE payment_id='$id'");
                         echo "<h1 class='btn btn-danger'>Delete Success<h1/>";
                     }
                     ?>
                     <!-- List USers -->
                  <?php
-                 $sql = mysqli_query($conn, "SELECT * FROM patients");
+                 $sql = mysqli_query($conn, "SELECT * FROM payment");
                  while($row = mysqli_fetch_array($sql)){?>
                  <tr> 
                     <td><?php echo $row[0];?></td>
@@ -82,14 +80,12 @@ include "library/conn.php";
                     <td><?php echo $row[3];?></td>
                     <td><?php echo $row[4];?></td>
                     <td><?php echo $row[5];?></td>
-                    <td><?php echo $row[6];?></td>
-                    <td><?php echo $row[7];?></td>
-                    <td>
+                <td>
                       <!-- melaha laga tago actionska -->
-                        <a href="Patient_edit.php?idd=<?php echo $row[0];?>" class="fa fa-edit btn btn-success">Edit</a>
-                        <a href="Patient_list.php?idd=<?php echo $row[0];?>" class="fa fa-edit btn btn-danger"
+                        <a href="payment_edit.php?idd=<?php echo $row[0];?>" class="fa fa-edit btn btn-success">Edit</a>
+                        <a href="payment_list.php?idd=<?php echo $row[0];?>" class="fa fa-edit btn btn-danger"
                          onclick= "return confirm('Mahubtaa Inaad Tiraysid Xogta')">Del</a>
-                        <a href="Patient_report.php?idd=<?php echo $row[0];?>" class="fa fa-edit btn btn-info" target="_blank">Print</a>
+                        <a href="payment_report.php?idd=<?php echo $row[0];?>" class="fa fa-edit btn btn-info" target="_blank">Print</a>
                     </td>
                  </tr>
                  <?php 

@@ -4,7 +4,6 @@ $id = $_GET['idd'];
 $Sql = mysqli_query($conn, "select * from patients where patient_id='$id'");
 $data = mysqli_fetch_array($Sql);
 ?>
-?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -33,9 +32,10 @@ $data = mysqli_fetch_array($Sql);
           <div class="tile">
             <h3 class="tile-title">Patient Registration Form</h3>
             <div class="tile-body">
-              <form action="" method="POST">
+              <form action="Patient_list.php" method="POST">
                 <div class="mb-3">
                   <label class="form-label">Patient Name</label>
+                   <input type="hidden" name="id" value="<?php echo $data[0];?>">
                   <input class="form-control" type="text" name="patientname" value="<?php echo $data[1];?>" required>
                 </div>
                 <div class="mb-3">
@@ -44,7 +44,7 @@ $data = mysqli_fetch_array($Sql);
                 </div>
                  <div class="mb-3">
                   <label class="form-label">Address</label>
-                  <input class="form-control" type="text" name="address" value="<?php echo $data[3];?>" required>
+                  <input class="form-control" type="text" name="addres" value="<?php echo $data[3];?>" required>
                 </div>
                  <div class="mb-3">
                   <label class="form-label">Age</label>
@@ -52,22 +52,19 @@ $data = mysqli_fetch_array($Sql);
                 </div>
                  <div class="mb-3">
                   <label class="form-label">Doctor Name</label>
-                   <select class="form-control" name="ddldoctorname">
-                          <?php
-                               $selectedDoctor = $data[5]; // magaca doctor-ka kaydsan
-                               $sql = mysqli_query($conn,"
-                                SELECT d.doctor_id, s.staff_name 
-                                FROM doctors d
-                                JOIN staff s ON s.staff_id = d.staff_id
-                                ");
-                                 while($row = mysqli_fetch_assoc($sql)){
-                                 $selected = ($row['staff_name'] == $selectedDoctor) ? "selected" : "";
-                                 echo "<option value='" . htmlspecialchars($row['staff_name']) . "' $selected>" . htmlspecialchars($row['staff_name']) . "</option>";
-                                }
-                            ?>
-                   </select>
-                  </div>
+                  <select class="form-control" name="ddldoctorname">
+                  <option value="<?php echo $data[5];?>"><?php echo $data[5];?></option>
+                  <!-- JOIN side LO sameyo -->
+                    <?php
+                    $sql = mysqli_query($conn,"SELECT s.staff_name FROM doctors d
+                     JOIN staff s ON s.staff_id = d.staff_id");
+                    while($row = mysqli_fetch_array($sql)){
+                      echo "<option value='$row[5]'>$row[5]</option>";
+                    }
+                    ?>
+                  </select>
 
+                </div>
                  <div class="mb-3">
                   <label class="form-label">Amount</label>
                   <input class="form-control" type="number" name="amount" value="<?php echo $data[6];?>" required >
@@ -77,17 +74,16 @@ $data = mysqli_fetch_array($Sql);
                 </div>
                 <div class="mb-3">
                   <label class="form-label">Date</label>
-                  <input class="form-control" type="date" name="date" value="<?php echo Date("Y-m-d")?>">
+                  <input class="form-control" type="date" name="date" value="<?php echo $data[7];?>" required >
                 </div>
             
             
             <div class="tile-footer">
-              <button class="btn btn-primary" type="submit" name="btnregister"><i class="bi
-               bi-check-circle-fill me-2"></i>Update</button>
+              <button class="btn btn-primary" type="submit" name="btnupdate"><i class="bi
+               bi-check-circle-fill me-2"></i>Register</button>
             </div>
             </form>
 
-        
           </div>
         </div>
 </div>

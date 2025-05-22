@@ -1,5 +1,5 @@
 <?php 
-include "library/conn.php"
+include "library/conn.php";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -40,7 +40,7 @@ include "library/conn.php"
                 </div>
                  <div class="mb-3">
                   <label class="form-label">Address</label>
-                  <input class="form-control" type="text" name="address" placeholder="Address" required>
+                  <input class="form-control" type="text" name="addres" placeholder="Address" required>
                 </div>
                  <div class="mb-3">
                   <label class="form-label">Age</label>
