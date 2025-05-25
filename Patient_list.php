@@ -46,22 +46,25 @@ include "library/conn.php";
                 <tbody>
 
                 <!-- Update code -->
-                <?php
-            if(isset($_POST['btnupdate'])){
-              $id = mysqli_real_escape_string($conn, $_POST['id']);
-              $pn = mysqli_real_escape_string($conn, $_POST['patientname']);
-              $te = mysqli_real_escape_string($conn, $_POST['tell']);
-              $ad = mysqli_real_escape_string($conn, $_POST['addres']);
-              $ag = mysqli_real_escape_string($conn, $_POST['age']);
-              $dn = mysqli_real_escape_string($conn, $_POST['ddldoctorname']);
-              $am = mysqli_real_escape_string($conn, $_POST['amount']);
-              $da = mysqli_real_escape_string($conn, $_POST['date']);
+         <?php
+            if (isset($_POST['btnupdate'])) {
+           $id = mysqli_real_escape_string($conn, $_POST['id']);
+            $pn = mysqli_real_escape_string($conn, $_POST['patientname']);
+           $te = mysqli_real_escape_string($conn, $_POST['tell']);
+            $ad = mysqli_real_escape_string($conn, $_POST['address']);
+          $ag = mysqli_real_escape_string($conn, $_POST['age']);
+           $dn = mysqli_real_escape_string($conn, $_POST['ddldoctorname']);
+          $am = mysqli_real_escape_string($conn, $_POST['amount']);
+           $da = mysqli_real_escape_string($conn, $_POST['date']);
 
-              $insert = mysqli_query($conn,"SELECT patients SET patient_name='$pn', tell='$te', address='$ad', age='$ag', feeamount='$am', regdate='$da' where patient_id='$id'");
-             
-              echo "<h1 class='btn btn-success'>Updated Success</h1>";
-            }
-            ?>
+           $edit = mysqli_query($conn, "UPDATE patients SET 
+             patient_name='$pn', tell='$te', address='$ad', age='$ag', doctor_id='$dn', feeamount='$am', regdate='$da' WHERE patient_id='$id'");
+              echo "<h1 class='btn btn-success'>updated Success</h1>";
+                }
+?>
+
+
+                
 
                 <!-- Delete code -->
                     <?php

@@ -1,9 +1,8 @@
 <?php 
 include "library/conn.php";
 $id = $_GET['idd'];
-$Sql = mysqli_query($conn, "select * from patients where patient_id='$id'");
+$Sql = mysqli_query($conn, "select * from payment where payment_id='$id'");
 $data = mysqli_fetch_array($Sql);
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -31,34 +30,18 @@ $data = mysqli_fetch_array($Sql);
       <div class="col-2"></div>
       <div class="col-md-8">
           <div class="tile">
-            <h3 class="tile-title">Patient Registration Form</h3>
+            <h3 class="tile-title">Payment Registration Form</h3>
             <div class="tile-body">
-              <form action="Patient_list.php" method="POST">
+              <form action="payment_list.php" method="POST">
+        
                 <div class="mb-3">
                   <label class="form-label">Patient Name</label>
-                  <input type="hidden" name="id" value="<?php echo $data[0];?>">
-                  <input class="form-control" type="text" name="patientname" value="<?php echo $data[1];?>">
-                </div>
-                <div class="mb-3">
-                  <label class="form-label">Tell</label>
-                  <input class="form-control" type="number" name="tell" value="<?php echo $data[2];?>">
-                </div>
-                 <div class="mb-3">
-                  <label class="form-label">Address</label>
-                  <input class="form-control" type="text" name="address" value="<?php echo $data[3];?>">
-                </div>
-                 <div class="mb-3">
-                  <label class="form-label">Age</label>
-                  <input class="form-control" type="number" name="age" value="<?php echo $data[4];?>">
-                </div>
-                 <div class="mb-3">
-                  <label class="form-label">Doctor Name</label>
-                  <select class="form-control" name="ddldoctorname">
-                    <option value="<?php echo $data[5];?>"><?php echo $data[5];?></option>
-                  <!-- JOIN side LO sameyo -->
+                   <input type="hidden" name="id" value="<?php echo $data[0]; ?>">
+                  <select class="form-control" name="patient_id" value="<?php echo $data[1];?>" required>
+                  <option value="<?php echo $data[1];?>"><?php echo $data[1];?></option>
+
                     <?php
-                    $sql = mysqli_query($conn,"SELECT d.doctor_id, s.staff_name FROM doctors d
-                     JOIN staff s ON s.staff_id = d.staff_id");
+                    $sql = mysqli_query($conn,"SELECT patient_id, patient_name FROM patients");
                     while($row = mysqli_fetch_array($sql)){
                       echo "<option value='$row[0]'>$row[1]</option>";
                     }
@@ -66,19 +49,26 @@ $data = mysqli_fetch_array($Sql);
                   </select>
 
                 </div>
-                 <div class="mb-3">
-                  <label class="form-label">Amount</label>
-                  <input class="form-control" type="number" name="amount" value="<?php echo $data[6];?>">
+                <div class="mb-3">
+                  <label class="form-label">Current Blance</label>
+                  <input class="form-control" type="number" name="amount" value="<?php echo $data[2];?>" required>
                 </div>
-
-        
+                 <div class="mb-3">
+                  <label class="form-label">Paid</label>
+                  <input class="form-control" type="number" name="paid" value="<?php echo $data[3];?>" required>
+                </div>
+                 <div class="mb-3">
+                  <label class="form-label">Remained</label>
+                  <input class="form-control" type="number" name="remained" value="<?php echo $data[4];?>" required>
+                </div>
+                      
                 </div>
                 <div class="mb-3">
                   <label class="form-label">Date</label>
-                  <input class="form-control" type="date" name="date" value="<?php echo $data[7];?>">
+                  <input class="form-control" type="date" name="date" value="<?php echo Date("Y-m-d")?>">
                 </div>
             
-            
+             
             <div class="tile-footer">
               <button class="btn btn-primary" type="submit" name="btnupdate"><i class="bi
                bi-check-circle-fill me-2"></i>Update</button>

@@ -67,7 +67,7 @@
             <li><a class="treeview-item" href="drugs.php"><i class="icon bi bi-circle-fill"></i>Register Drugs</a></li>
         </ul>
           <ul class="treeview-menu">
-            <li><a class="treeview-item" href="department.php"><i class="icon bi bi-circle-fill"></i> Add Drugs </a></li>
+            <li><a class="treeview-item" href="department.php"><i class="icon bi bi-circle-fill"></i> List Drugs </a></li>
           </ul>
         </li>
          <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon bi bi-laptop">

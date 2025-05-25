@@ -1,5 +1,5 @@
 <?php 
-include "library/conn.php"
+include "library/conn.php";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -45,20 +45,20 @@ include "library/conn.php"
 
                 <!-- Update code -->
                 <?php
-                    if(isset($_POST['btnupdate'])){
-                    $id = mysqli_real_escape_string($conn, $_POST['id']);
-                    $pn = mysqli_real_escape_string($conn, $_POST['patient_name']);
-                    $te = mysqli_real_escape_string($conn, $_POST['tell']);
-                    $add = mysqli_real_escape_string($conn, $_POST['address']);
-                    $ag = mysqli_real_escape_string($conn, $_POST['age']);
-                    $do = mysqli_real_escape_string($conn, $_POST['doctor_id']);
-                    $fa = mysqli_real_escape_string($conn, $_POST['feeamount']);
-                    $da = mysqli_real_escape_string($conn, $_POST['regdate']);
+                    if (isset($_POST['btnupdate'])) {
+                     $id = mysqli_real_escape_string($conn, $_POST['id']);
+                     $patient_id = mysqli_real_escape_string($conn, $_POST['patient_id']);
+                     $amount = mysqli_real_escape_string($conn, $_POST['amount']);
+                     $paid = mysqli_real_escape_string($conn, $_POST['paid']);
+                     $remained = mysqli_real_escape_string($conn, $_POST['remained']);
+                     $date = mysqli_real_escape_string($conn, $_POST['date']);
 
-                     $edit = mysqli_query($conn,"UPDATE patients SET patient_name='$pn', tell='$te', address='$add', age='$ag', doctor_id='$do', feeamount='$fa', regdate='$da' WHERE patient_id='$id'");
+                     $edit = mysqli_query($conn, "UPDATE payment SET patient_id='$patient_id', amount='$amount', paid='$paid', remained='$remained', regdate='$date' 
+                     WHERE payment_id='$id'");
+                      echo "<h1 class='btn btn-success'>updated Success</h1>";
 
-                echo "<h1 class='btn btn-success'>updated Success</h1>";
-                }
+                     }
+
             ?>
 
                 <!-- Delete code -->
