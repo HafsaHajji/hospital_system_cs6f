@@ -46,22 +46,24 @@ include "library/conn.php"
                 <tbody>
 
                 <!-- Update code -->
-                <?php
-                    if(isset($_POST['btnupdate'])){
-                    $id = mysqli_real_escape_string($conn, $_POST['id']);
-                    $pn = mysqli_real_escape_string($conn, $_POST['patient_name']);
-                    $te = mysqli_real_escape_string($conn, $_POST['tell']);
-                    $add = mysqli_real_escape_string($conn, $_POST['address']);
-                    $ag = mysqli_real_escape_string($conn, $_POST['age']);
-                    $do = mysqli_real_escape_string($conn, $_POST['doctor_id']);
-                    $fa = mysqli_real_escape_string($conn, $_POST['feeamount']);
-                    $da = mysqli_real_escape_string($conn, $_POST['regdate']);
+          <?php
+              if(isset($_POST['btnupdate'])){
+              $id = mysqli_real_escape_string($conn, $_POST['id']);
+              $sn = mysqli_real_escape_string($conn, $_POST['staffname']);
+              $te = mysqli_real_escape_string($conn, $_POST['tell']);
+              $ad = mysqli_real_escape_string($conn, $_POST['address']);
+              $em = mysqli_real_escape_string($conn, $_POST['email']);
+              $de = mysqli_real_escape_string($conn, $_POST['ddldeptname']);
+              $sa = mysqli_real_escape_string($conn, $_POST['salary']);
+              $da = mysqli_real_escape_string($conn, $_POST['date']);
 
-                     $edit = mysqli_query($conn,"UPDATE patients SET patient_name='$pn', tell='$te', address='$add', age='$ag', doctor_id='$do', feeamount='$fa', regdate='$da' WHERE patient_id='$id'");
+
+              $edit = mysqli_query($conn,"UPDATE staff SET staff_name='$sn', tell='$te', address='$ad', email='$em',
+              department_id='$de', salary='$sa', regdate='$da' WHERE staff_id='$id'");
 
                 echo "<h1 class='btn btn-success'>updated Success</h1>";
                 }
-            ?>
+          ?>
 
                 <!-- Delete code -->
                     <?php
@@ -87,7 +89,7 @@ include "library/conn.php"
                   
                 <td>
                       <!-- melaha laga tago actionska -->
-                        <a href="payment_edit.php?idd=<?php echo $row[0];?>" class="fa fa-edit btn btn-success">Edit</a>
+                        <a href="staff_edit.php?idd=<?php echo $row[0];?>" class="fa fa-edit btn btn-success">Edit</a>
                         <a href="staff_list.php?idd=<?php echo $row[0];?>" class="fa fa-edit btn btn-danger"
                          onclick= "return confirm('Mahubtaa Inaad Tiraysid Xogta')">Del</a>
                         <a href="staff_report.php?idd=<?php echo $row[0];?>" class="fa fa-edit btn btn-info" target="_blank">Print</a>
