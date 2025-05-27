@@ -1,44 +1,43 @@
-<?php 
-include "library/conn.php"
+<?php
+include "library/conn.php";
 ?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
-<?php include "library/head.php";?> 
-<script src="js/jquery.js"></script>
-<script>
-  function subtract(){
-    let currentbalance = document.getElementById("currentbalance").value;
-    let paid = document.getElementById("paid").value;
-    let remained = document.getElementById("remained").value = currentbalance - paid;
+  <?php include "library/head.php";?>
+  <script src="js/jquery.js"></script>
+  
+  <script>
+    function subtract(){
+      let currbalance = document.getElementById("currbalance").value;
+      let paid = document.getElementById("paid").value;
+      let remained = document.getElementById("remained").value = currbalance - paid;
 
-  }
+    }
+  </script>
+  <script>
+     $(function(){
+       $('#ddlpname').on('change',function(){
 
-</script>
-
-<script>
-  $(function(){
-    $('#ddlpname').on('change',function(){
-
-      var id = $(this).val();
-      $.post('get_patient.php',{id:$(this).val()}, function(res){
+        var id = $(this).val();
+        $.post('get_patient.php',{id:$(this).val()},function(res){
         var res1 = res.split(",");
 
-     $("#currentbalance").val($.trim(res1[0]));
-    
+        $("#currbalance").val($.trim(res1[0]));
+        
+               
+        });
 
+        });
      });
-    });
-  });
-
-</script>
+  </script>
   </head>
   <body class="app sidebar-mini">
     <!-- Navbar-->
-    <?php include "library/header.php";?> 
+    <?php include "library/header.php";?>
     <!-- Sidebar menu-->
     <div class="app-sidebar__overlay" data-toggle="sidebar"></div>
-    <?php require "library/sidebar.php";?> 
+   <?php require "library/sidebar.php";?>
     <main class="app-content">
       <div class="app-title">
         <div>
@@ -57,68 +56,63 @@ include "library/conn.php"
             <h3 class="tile-title">Payment Registration Form</h3>
             <div class="tile-body">
               <form action="" method="POST">
-        
                 <div class="mb-3">
                   <label class="form-label">Patient Name</label>
-                  <select class="form-control" name="ddlpatientname" id="ddlpname">
-                    <option value="">Select Patient Name</option>
+                 <select class="form-control" name="pname" id="ddlpname">
+                    <option>Select Patient Name</option>
                     <?php
-                    $sql = mysqli_query($conn,"SELECT patient_id, patient_name FROM patients");
-                    while($row = mysqli_fetch_array($sql)){
-                      echo "<option value='$row[0]'>$row[1]</option>";
-                    }
+                      $sql = mysqli_query($conn, "SELECT patient_id, patient_name from patients");
+                      while($row = mysqli_fetch_array($sql)){
+                        echo "<option value='$row[0]'>$row[1]</option>";
+                      }
                     ?>
                   </select>
-
                 </div>
                 <div class="mb-3">
-                  <label class="form-label">Current Blance</label>
-                  <input class="form-control" type="number" name="currentbalance" id="currentbalance" placeholder="Current Blance" required readonly>
+                  <label class="form-label">Current Balance</label>
+                  <input class="form-control" type="number" name="currentbalance" id="currbalance" placeholder="Current Balance" required readonly>
                 </div>
                  <div class="mb-3">
                   <label class="form-label">Paid</label>
-                  <input class="form-control" type="number" name="paid" id="paid" placeholder="Paid" required
-                  onkeyup=subtract()>
+                  <input class="form-control" type="number" name="paid" id="paid" placeholder="Paid" required onkeyup=subtract()>
                 </div>
                  <div class="mb-3">
                   <label class="form-label">Remained</label>
                   <input class="form-control" type="number" name="remained" id="remained" placeholder="Remained" required readonly>
                 </div>
-                      
-                </div>
+
+                
                 <div class="mb-3">
                   <label class="form-label">Date</label>
-                  <input class="form-control" type="date" name="date" value="<?php echo Date("Y-m-d")?>">
+                  <input class="form-control" type="date" name="date" value="<?php echo Date("Y-m-d");?>">
                 </div>
-            
              
+          </div>
             <div class="tile-footer">
-              <button class="btn btn-primary" type="submit" name="btnregister"><i class="bi
-               bi-check-circle-fill me-2"></i>Register</button>
+              <button class="btn btn-primary" type="submit" name="btnregister"><i class="bi bi-check-circle-fill me-2"></i>Register</button>
             </div>
             </form>
-
-            <!-- save code -->
+            <!-- Save code -->
             <?php
-            if(isset($_POST['btnregister'])){
-              $pn = mysqli_real_escape_string($conn, $_POST['ddlpatientname']);
-              $cb = mysqli_real_escape_string($conn, $_POST['currentbalance']);
-              $pa = mysqli_real_escape_string($conn, $_POST['paid']);
-              $re = mysqli_real_escape_string($conn, $_POST['remained']);
-              $da = mysqli_real_escape_string($conn, $_POST['date']);
+              if(isset($_POST['btnregister'])){
+                $pn = mysqli_real_escape_string($conn, $_POST['pname']);
+                $cb = mysqli_real_escape_string($conn, $_POST['currentbalance']);
+                $pa = mysqli_real_escape_string($conn, $_POST['paid']); 
+                $re = mysqli_real_escape_string($conn, $_POST['remained']);               
+                $da = mysqli_real_escape_string($conn, $_POST['date']);
 
-              $insert = mysqli_query($conn,"INSERT INTO payment VALUES(null, '$pn', '$cb', '$pa', '$re', '$da')");
-              echo "<h1 class='btn btn-success'>Insert Success</h1>";
-            }
+                $insert = mysqli_query($conn, "INSERT INTO payment VALUES(null, '$pn', '$cb', '$pa', '$re', '$da')");
+                echo "<h1 class='btn btn-success'>Inserted Success</h1>";
+              }
             ?>
           </div>
         </div>
 </div>
-     </div>
-
-
+      </div>
+   
     </main>
-    <?php include "library/footer.php";?> 
-    <?php include "library/script.php";?> 
+
+    <?php include "library/footer.php";?>
+    <?php include "library/script.php";?>
   </body>
 </html>

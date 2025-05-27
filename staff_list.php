@@ -26,6 +26,17 @@ include "library/conn.php"
       <div class="row">
         <div class="col-md-12">
           <div class="tile">
+            <div class="row">
+            <div class="col-10"></div>
+              <div class="col-2 ">
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                 data-bs-target="#staffModal">
+                 Add staff
+               </button>
+              </div>
+          </div>
+          <?php include "modal/system_modal.php";?>
             <div class="tile-body">
               <div class="table-responsive">
                 <table class="table table-hover table-bordered" id="sampleTable">
@@ -45,6 +56,21 @@ include "library/conn.php"
                     </tr>
                  </thead>
                </tbody>
+               <!-- save code -->
+            <?php
+            if(isset($_POST['btnregister'])){
+              $sn = mysqli_real_escape_string($conn, $_POST['staffname']);
+              $te = mysqli_real_escape_string($conn, $_POST['tell']);
+              $ad = mysqli_real_escape_string($conn, $_POST['address']);
+              $em = mysqli_real_escape_string($conn, $_POST['email']);
+              $de = mysqli_real_escape_string($conn, $_POST['ddldeptname']);
+              $sa = mysqli_real_escape_string($conn, $_POST['salary']);
+              $da = mysqli_real_escape_string($conn, $_POST['date']);
+
+              $insert = mysqli_query($conn,"INSERT INTO staff VALUES(null, '$sn', '$te', '$ad', '$em', '$de','$sa','$da')");
+              echo "<h1 class='btn btn-success'>Insert Success</h1>";
+            }
+            ?>
 
                 <!-- Update code -->
           <?php

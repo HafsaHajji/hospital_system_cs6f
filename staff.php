@@ -29,7 +29,7 @@ include "library/conn.php"
           <div class="tile">
             <h3 class="tile-title">Staff Registration Form</h3>
             <div class="tile-body">
-              <form action="" method="POST">
+            <form action="" method="POST">
                 <div class="mb-3">
                   <label class="form-label">Staff Name</label>
                   <input class="form-control" type="text" name="staffname" placeholder="Staff Name" required>

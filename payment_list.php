@@ -5,6 +5,32 @@ include "library/conn.php";
 <html lang="en">
   <head>
 <?php include "library/head.php";?> 
+<script src="js/jquery.js"></script>
+  
+  <script>
+    function subtract(){
+      let currbalance = document.getElementById("currbalance").value;
+      let paid = document.getElementById("paid").value;
+      let remained = document.getElementById("remained").value = currbalance - paid;
+
+    }
+  </script>
+  <script>
+     $(function(){
+       $('#ddlpname').on('change',function(){
+
+        var id = $(this).val();
+        $.post('get_patient.php',{id:$(this).val()},function(res){
+        var res1 = res.split(",");
+
+        $("#currbalance").val($.trim(res1[0]));
+        
+               
+        });
+
+        });
+     });
+  </script>
   </head>
   <body class="app sidebar-mini">
     <!-- Navbar-->
@@ -26,6 +52,17 @@ include "library/conn.php";
       <div class="row">
         <div class="col-md-12">
           <div class="tile">
+            <div class="row">
+            <div class="col-10"></div>
+              <div class="col-2 ">
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                 data-bs-target="#paymentModal">
+                 Add payment
+               </button>
+              </div>
+          </div>
+          <?php include "modal/system_modal.php";?>
             <div class="tile-body">
               <div class="table-responsive">
                 <table class="table table-hover table-bordered" id="sampleTable">
@@ -40,8 +77,22 @@ include "library/conn.php";
                      <th>Action</th>
 
                     </tr>
-</thead>
+           </thead>
                 <tbody>
+                  <!-- Save code -->
+            <?php
+              if(isset($_POST['btnregister'])){
+                $pn = mysqli_real_escape_string($conn, $_POST['pname']);
+                $cb = mysqli_real_escape_string($conn, $_POST['currentbalance']);
+                $pa = mysqli_real_escape_string($conn, $_POST['paid']); 
+                $re = mysqli_real_escape_string($conn, $_POST['remained']);               
+                $da = mysqli_real_escape_string($conn, $_POST['date']);
+
+                $insert = mysqli_query($conn, "INSERT INTO payment VALUES(null, '$pn', '$cb', '$pa', '$re', '$da')");
+                echo "<h1 class='btn btn-success'>Inserted Success</h1>";
+              }
+            ?>
+                  
 
                 <!-- Update code -->
                 <?php
