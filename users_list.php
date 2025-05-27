@@ -26,6 +26,20 @@ include "library/conn.php"
       <div class="row">
         <div class="col-md-12">
           <div class="tile">
+            <!-- mesha modal la dhigo -->
+            <div class="row">
+            <div class="col-10"></div>
+              <div class="col-2 ">
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                 data-bs-target="#userModal">
+                 Add User
+               </button>
+              </div>
+          </div>
+
+          <?php include "modal/system_modal.php";?>
+          <!-- End Modal -->
             <div class="tile-body">
               <div class="table-responsive">
                 <table class="table table-hover table-bordered" id="sampleTable">
@@ -38,8 +52,20 @@ include "library/conn.php"
                       <th>Date</th>
                       <th>Action</th>
                     </tr>
-</thead>
+          </thead>
                 <tbody>
+                  <!-- save code -->
+            <?php
+            if(isset($_POST['btnregister'])){
+              $un = mysqli_real_escape_string($conn, $_POST['username']);
+              $pa = mysqli_real_escape_string($conn, $_POST['password']);
+              $ut = mysqli_real_escape_string($conn, $_POST['usertype']);
+              $da = mysqli_real_escape_string($conn, $_POST['date']);
+
+              $insert = mysqli_query($conn,"INSERT INTO users VALUES(null, '$un', '$pa', '$ut', '$da')");
+              echo "<h1 class='btn btn-success'>Insert Success</h1>";
+            }
+            ?>
 
                 <!-- Update code -->
                 <?php

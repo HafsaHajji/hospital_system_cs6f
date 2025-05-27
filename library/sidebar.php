@@ -49,11 +49,9 @@
         </i>
         <span class="app-menu__label">Patients</span><i class="treeview-indicator bi bi-chevron-right"></i></a>
           <ul class="treeview-menu">
-            <li><a class="treeview-item" href="Patients.php"><i class="icon bi bi-circle-fill"></i>Register Patients</a></li>
+            <li><a class="treeview-item" href="Patients.php"><i class="icon bi bi-circle-fill"></i>Add Patients</a></li>
         </ul>
-          <ul class="treeview-menu">
-            <li><a class="treeview-item" href="department.php"><i class="icon bi bi-circle-fill"></i> Add patient </a></li>
-          </ul>
+          
           <ul class="treeview-menu">
             <li><a class="treeview-item" href="Patient_list.php"><i class="icon bi bi-circle-fill"></i> Patient List </a></li>
           </ul>

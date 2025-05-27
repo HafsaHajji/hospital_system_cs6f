@@ -5,6 +5,33 @@ include "library/conn.php"
 <html lang="en">
   <head>
 <?php include "library/head.php";?> 
+<script src="js/jquery.js"></script>
+<script>
+  function subtract(){
+    let currentbalance = document.getElementById("currentbalance").value;
+    let paid = document.getElementById("paid").value;
+    let remained = document.getElementById("remained").value = currentbalance - paid;
+
+  }
+
+</script>
+
+<script>
+  $(function(){
+    $('#ddlpname').on('change',function(){
+
+      var id = $(this).val();
+      $.post('get_patient.php',{id:$(this).val()}, function(res){
+        var res1 = res.split(",");
+
+     $("#currentbalance").val($.trim(res1[0]));
+    
+
+     });
+    });
+  });
+
+</script>
   </head>
   <body class="app sidebar-mini">
     <!-- Navbar-->
@@ -33,7 +60,7 @@ include "library/conn.php"
         
                 <div class="mb-3">
                   <label class="form-label">Patient Name</label>
-                  <select class="form-control" name="ddlpatientname">
+                  <select class="form-control" name="ddlpatientname" id="ddlpname">
                     <option value="">Select Patient Name</option>
                     <?php
                     $sql = mysqli_query($conn,"SELECT patient_id, patient_name FROM patients");
@@ -46,15 +73,16 @@ include "library/conn.php"
                 </div>
                 <div class="mb-3">
                   <label class="form-label">Current Blance</label>
-                  <input class="form-control" type="number" name="currentbalance" placeholder="Current Blance" required>
+                  <input class="form-control" type="number" name="currentbalance" id="currentbalance" placeholder="Current Blance" required readonly>
                 </div>
                  <div class="mb-3">
                   <label class="form-label">Paid</label>
-                  <input class="form-control" type="number" name="paid" placeholder="Paid" required>
+                  <input class="form-control" type="number" name="paid" id="paid" placeholder="Paid" required
+                  onkeyup=subtract()>
                 </div>
                  <div class="mb-3">
                   <label class="form-label">Remained</label>
-                  <input class="form-control" type="number" name="remained" placeholder="Remained" required>
+                  <input class="form-control" type="number" name="remained" id="remained" placeholder="Remained" required readonly>
                 </div>
                       
                 </div>

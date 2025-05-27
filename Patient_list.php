@@ -24,10 +24,22 @@ include "library/conn.php";
         </ul>
       </div>
       <div class="row">
+        
         <div class="col-md-12">
           <div class="tile">
-            <div class="tile-body">
-              <div class="table-responsive">
+            <div class="row">
+            <div class="col-10"></div>
+              <div class="col-2 ">
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                 data-bs-target="#patientModal">
+                 Add Patient
+               </button>
+              </div>
+          </div>
+          <?php include "modal/system_modal.php";?>
+            <div class="tile-body ">
+              <div class="table-responsive mt-4">
                 <table class="table table-hover table-bordered" id="sampleTable">
                   <thead>
                     <tr>
@@ -42,26 +54,41 @@ include "library/conn.php";
                      <th>Action</th>
 
                     </tr>
-</thead>
+                   </thead>
                 <tbody>
+                  <!-- save code -->
+            <?php
+            if(isset($_POST['btnregister'])){
+              $pn = mysqli_real_escape_string($conn, $_POST['patientname']);
+              $te = mysqli_real_escape_string($conn, $_POST['tell']);
+              $ad = mysqli_real_escape_string($conn, $_POST['address']);
+              $ag = mysqli_real_escape_string($conn, $_POST['age']);
+              $dn = mysqli_real_escape_string($conn, $_POST['ddldoctorname']);
+              $am = mysqli_real_escape_string($conn, $_POST['amount']);
+              $da = mysqli_real_escape_string($conn, $_POST['date']);
+
+              $insert = mysqli_query($conn,"INSERT INTO patients VALUES(null, '$pn', '$te', '$ad', '$ag', '$dn','$am','$da')");
+              echo "<h1 class='btn btn-success'>Insert Success</h1>";
+            }
+            ?>
 
                 <!-- Update code -->
          <?php
             if (isset($_POST['btnupdate'])) {
-           $id = mysqli_real_escape_string($conn, $_POST['id']);
-            $pn = mysqli_real_escape_string($conn, $_POST['patientname']);
-           $te = mysqli_real_escape_string($conn, $_POST['tell']);
-            $ad = mysqli_real_escape_string($conn, $_POST['address']);
-          $ag = mysqli_real_escape_string($conn, $_POST['age']);
-           $dn = mysqli_real_escape_string($conn, $_POST['ddldoctorname']);
-          $am = mysqli_real_escape_string($conn, $_POST['amount']);
-           $da = mysqli_real_escape_string($conn, $_POST['date']);
+               $id = mysqli_real_escape_string($conn, $_POST['id']);
+               $pn = mysqli_real_escape_string($conn, $_POST['patientname']);
+               $te = mysqli_real_escape_string($conn, $_POST['tell']);
+               $ad = mysqli_real_escape_string($conn, $_POST['address']);
+               $ag = mysqli_real_escape_string($conn, $_POST['age']);
+               $dn = mysqli_real_escape_string($conn, $_POST['ddldoctorname']);
+               $am = mysqli_real_escape_string($conn, $_POST['amount']);
+               $da = mysqli_real_escape_string($conn, $_POST['date']);
 
-           $edit = mysqli_query($conn, "UPDATE patients SET 
+             $edit = mysqli_query($conn, "UPDATE patients SET 
              patient_name='$pn', tell='$te', address='$ad', age='$ag', doctor_id='$dn', feeamount='$am', regdate='$da' WHERE patient_id='$id'");
               echo "<h1 class='btn btn-success'>updated Success</h1>";
                 }
-?>
+         ?>
 
 
                 
@@ -85,7 +112,7 @@ include "library/conn.php";
                     <td><?php echo $row[3];?></td>
                     <td><?php echo $row[4];?></td>
                     <td><?php echo $row[5];?></td>
-                    <td><?php echo $row[6];?></td>
+                    <td><b>$</b><?php echo $row[6];?></td>
                     <td><?php echo $row[7];?></td>
                     <td>
                       <!-- melaha laga tago actionska -->

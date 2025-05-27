@@ -29,6 +29,7 @@ include "library/conn.php"
             <div class="tile-body">
               <div class="table-responsive">
                 <table class="table table-hover table-bordered" id="sampleTable">
+                <tbody>
                   <thead>
                     <tr>
                         <th>Serial</th>
@@ -42,8 +43,8 @@ include "library/conn.php"
                      <th>Action</th>
 
                     </tr>
-</thead>
-                <tbody>
+                 </thead>
+               </tbody>
 
                 <!-- Update code -->
           <?php
