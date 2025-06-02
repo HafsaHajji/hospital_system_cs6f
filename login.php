@@ -1,14 +1,10 @@
+<?php include "library/conn.php";
+// session_start();
+?>
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- Main CSS-->
-    <link rel="stylesheet" type="text/css" href="css/main.css">
-    <!-- Font-icon css-->
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-    <title>Login - Vali Admin</title>
+   <?php include "library/head.php";?>
   </head>
   <body>
     <section class="material-half-bg">
@@ -16,18 +12,18 @@
     </section>
     <section class="login-content">
       <div class="logo">
-        <h1>Vali</h1>
+        <h1>Hospital System</h1>
       </div>
       <div class="login-box">
-        <form class="login-form" action="index.html">
+        <form class="login-form" action="" method="post">
           <h3 class="login-head"><i class="bi bi-person me-2"></i>SIGN IN</h3>
           <div class="mb-3">
             <label class="form-label">USERNAME</label>
-            <input class="form-control" type="text" placeholder="Email" autofocus>
+            <input class="form-control" type="text" name="username" placeholder="Username" required autofocus>
           </div>
           <div class="mb-3">
             <label class="form-label">PASSWORD</label>
-            <input class="form-control" type="password" placeholder="Password">
+            <input class="form-control" type="password" name="password" required placeholder="Password">
           </div>
           <div class="mb-3">
             <div class="utility">
@@ -40,10 +36,29 @@
             </div>
           </div>
           <div class="mb-3 btn-container d-grid">
-            <button class="btn btn-primary btn-block"><i class="bi bi-box-arrow-in-right me-2 fs-5"></i>SIGN IN</button>
+            <button type="submit" name="btnlogin" class="btn btn-primary btn-block"><i class="bi bi-box-arrow-in-right me-2 fs-5"></i>SIGN IN</button>
           </div>
         </form>
-        <form class="forget-form" action="index.html">
+        <!-- Login Code -->
+          <?php
+        if(isset($_POST['btnlogin'])){
+          $user = mysqli_query($conn, "SELECT * FROM users WHERE username='".$_POST['username']."' and password='".$_POST['password']."'");
+          if(mysqli_num_rows($user) > 0){
+            $us = mysqli_fetch_array($user);
+
+            $usern = $us['username'];
+            $_SESSION['userid'] = $us['userid'];
+            $_SESSION['username'] = $usern;
+ 
+            echo "<script>window.location='index.php'</script>";
+          }else{
+            echo "<br>";
+            echo "<h1 class='btn btn-success' style='width:100%'>Invalid Username or Password</h1>";
+          }
+        }
+        
+        ?>
+        <!-- <form class="forget-form" action="index.html">
           <h3 class="login-head"><i class="bi bi-person-lock me-2"></i>Forgot Password ?</h3>
           <div class="mb-3">
             <label class="form-label">EMAIL</label>
@@ -55,7 +70,7 @@
           <div class="mb-3 mt-3">
             <p class="semibold-text mb-0"><a href="#" data-toggle="flip"><i class="bi bi-chevron-left me-1"></i> Back to Login</a></p>
           </div>
-        </form>
+        </form> -->
       </div>
     </section>
     <!-- Essential javascripts for application to work-->

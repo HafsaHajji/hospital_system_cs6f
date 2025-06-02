@@ -1,5 +1,3 @@
-patients Code
-
 
 <?php 
 include "library/conn.php";

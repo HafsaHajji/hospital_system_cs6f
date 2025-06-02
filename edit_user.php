@@ -1,21 +1,20 @@
-<?php 
+<?php
 include "library/conn.php";
-// id mesha lagu qabto oo laso mujiyo xogta
 $id = $_GET['idd'];
-$Sql = mysqli_query($conn, "select * from users where userid='$id'");
-$data = mysqli_fetch_array($Sql);
+$sql = mysqli_query($conn, "select * from users where userid='$id'");
+$data = mysqli_fetch_array($sql);
 ?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
-<?php include "library/head.php";?> 
+  <?php include "library/head.php";?>
   </head>
   <body class="app sidebar-mini">
     <!-- Navbar-->
-    <?php include "library/header.php";?> 
+    <?php include "library/header.php";?>
     <!-- Sidebar menu-->
     <div class="app-sidebar__overlay" data-toggle="sidebar"></div>
-    <?php require "library/sidebar.php";?> 
+   <?php require "library/sidebar.php";?>
     <main class="app-content">
       <div class="app-title">
         <div>
@@ -31,7 +30,7 @@ $data = mysqli_fetch_array($Sql);
       <div class="col-2"></div>
       <div class="col-md-8">
           <div class="tile">
-            <h3 class="tile-title"> Edit User Registration Form</h3>
+            <h3 class="tile-title">edit_user Registration Form</h3>
             <div class="tile-body">
               <form action="users_list.php" method="POST">
                 <div class="mb-3">
@@ -45,34 +44,31 @@ $data = mysqli_fetch_array($Sql);
                 </div>
                 <div class="mb-3">
                   <label class="form-label">User Type</label>
-                 <select name="usertype" class="form-control" required>
-                  <option value="<?php echo $data[3];?>"><?php echo $data[3];?></option>
-                  <option value="Admin">Admin</option>
-                  <option value="User">User</option>
-                 </select>
+                  <select name="usertype" class="form-control" required>
+                    <option value="<?php echo $data[3];?>"><?php echo $data[3];?></option>
+                    <option value="Admin">Admin</option>
+                    <option value="User">User</option>
+                  </select>
                 </div>
                 <div class="mb-3">
                   <label class="form-label">Date</label>
-                  <input class="form-control" type="date" name="date" value="<?php echo Date("Y-m-d")?>">
+                  <input class="form-control" type="date" name="date" value="<?php echo $data[4];?>">
                 </div>
-              
-                
-            
-          
+             
             </div>
             <div class="tile-footer">
               <button class="btn btn-primary" type="submit" name="btnupdate"><i class="bi bi-check-circle-fill me-2"></i>Update</button>
             </div>
             </form>
-            
+      
           </div>
         </div>
 </div>
-     </div>
-
-
+      </div>
+   
     </main>
-    <?php include "library/footer.php";?> 
-    <?php include "library/script.php";?> 
+
+    <?php include "library/footer.php";?>
+    <?php include "library/script.php";?>
   </body>
 </html>
